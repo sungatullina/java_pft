@@ -13,8 +13,13 @@ public class Point {
     this.y=y;
   }
 
-  public static double distance(Point a, Point b){
+  public double distance(Point p){
+    return Math.sqrt(Math.pow(p.x-this.x,2)+Math.pow(p.y-this.y,2));
+
+  }
+
+ /* public static double distance(Point a, Point b){
 
     return Math.sqrt(Math.pow(a.x-b.x,2)+Math.pow(a.y-b.y,2));
-  }
+  }*/
 }

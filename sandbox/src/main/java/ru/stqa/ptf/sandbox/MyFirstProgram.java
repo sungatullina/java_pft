@@ -20,7 +20,7 @@ public class MyFirstProgram {
       Point p1 = new Point(2, 2);
       System.out.println("Координата x= "+p1.x);
       Point p2 = new Point(0,0);
-      System.out.println("Расстояние между точками равно "+Point.distance(p1,p2));
+      System.out.println("Расстояние между точками равно "+p1.distance(p2));
 }
 
   public static void hello(String somebody) {
