@@ -15,11 +15,6 @@ public class ApplicationManager {
   private NavigationHelper navigationHelper;
   private GroupHelper groupHelper;
 
-  /*public ApplicationManager(FirefoxDriver wd) {
-    navigationHelper = new NavigationHelper(wd);
-  }*/
-
-
 
   public void init() {
     wd = new FirefoxDriver();
