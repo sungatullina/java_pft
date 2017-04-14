@@ -6,13 +6,15 @@ public class ContactData {
   private final String address;
   private final String work_number;
   private final String email;
+  private String group;
 
-  public ContactData(String firstname, String lastname, String address, String work_number, String email) {
+  public ContactData(String firstname, String lastname, String address, String work_number, String email, String group) {
     this.firstname = firstname;
     this.lastname = lastname;
     this.address = address;
     this.work_number = work_number;
     this.email = email;
+    this.group = group;
   }
 
   public String getFirstname() {
@@ -33,5 +35,9 @@ public class ContactData {
 
   public String getEmail() {
     return email;
+  }
+
+  public String getGroup() {
+    return group;
   }
 }
