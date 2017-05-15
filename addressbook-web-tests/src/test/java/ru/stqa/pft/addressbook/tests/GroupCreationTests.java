@@ -18,6 +18,7 @@ public class GroupCreationTests extends TestBase{
     List<GroupData> before = app.getGroupHelper().getGroupList();
     GroupData group = new GroupData("test2", null, null);
     app.getGroupHelper().createGroup(group);
+    app.getNavigationHelper().gotoGroupPage();
     List<GroupData> after = app.getGroupHelper().getGroupList(); //список элементов, после того как создана новая группа
     Assert.assertEquals(after.size(), before.size() + 1);
 
