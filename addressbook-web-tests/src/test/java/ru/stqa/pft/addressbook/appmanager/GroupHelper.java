@@ -60,11 +60,11 @@ public class GroupHelper extends HelperBase {
   }
 
   public void modifyGroup(int index, GroupData group) {
-    app.getGroupHelper().selectGroup(index);
-    app.getGroupHelper().initGroupModification();
-    app.getGroupHelper().fillGroupForm(group);
-    app.getGroupHelper().submitGroupModification();
-    app.getGroupHelper().returnToGroupPage();
+    selectGroup(index);
+    initGroupModification();
+    fillGroupForm(group);
+    submitGroupModification();
+    returnToGroupPage();
   }
 
   public boolean isThereAGroup() {
