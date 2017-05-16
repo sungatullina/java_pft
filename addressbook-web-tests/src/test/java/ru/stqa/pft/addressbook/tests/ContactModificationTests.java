@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import java.util.Random;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -15,21 +14,21 @@ public class ContactModificationTests extends TestBase {
 
   @Test (enabled = false)
   public void testContactModification(){
-    app.getNavigationHelper().gotoHomePage();
+    app.goTo().gotoHomePage();
     if (! app.getContactHelper().isTheAContact()) {
-      app.getNavigationHelper().gotoContactPage();
+      app.goTo().gotoContactPage();
       app.getContactHelper().createContact(new ContactData("Александр", "Пучков", "Москва", "88008888", "test@test.ru", "test1"));
     }
     List<ContactData> before = app.getContactHelper().getContactList();
     Random randomGenerator = new Random();
     int index =(before.size()-1)-1;
     ContactData item = before.get(index);
-    app.getNavigationHelper().gotoHomePage();
+    app.goTo().gotoHomePage();
     app.getContactHelper().initContactModification(index);
     ContactData contact = new ContactData(item.getId(), "Александр", "Пучков", "Москва008", "88008888", "test@test.ru", null);
     app.getContactHelper().fillContactForm(contact,false);
     app.getContactHelper().submitContactModification();
-    app.getNavigationHelper().gotoHomePage();
+    app.goTo().gotoHomePage();
     List<ContactData> after = app.getContactHelper().getContactList();
     Assert.assertEquals(after.size(), before.size());
 
