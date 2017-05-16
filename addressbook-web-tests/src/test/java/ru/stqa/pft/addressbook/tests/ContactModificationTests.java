@@ -12,12 +12,12 @@ import java.util.List;
  */
 public class ContactModificationTests extends TestBase {
 
-  @Test (enabled = false)
+  @Test
   public void testContactModification(){
     app.goTo().gotoHomePage();
     if (! app.getContactHelper().isTheAContact()) {
       app.goTo().gotoContactPage();
-      app.getContactHelper().createContact(new ContactData("Александр", "Пучков", "Москва", "88008888", "test@test.ru", "test1"));
+      app.getContactHelper().createContact(new ContactData().withFirstname("Александр").withLastname("Пучков").withAddress("Москва").withWork_number("88008888").withEmail("test@test.ru").withGroup("test1"));
     }
     List<ContactData> before = app.getContactHelper().getContactList();
     Random randomGenerator = new Random();
@@ -25,7 +25,7 @@ public class ContactModificationTests extends TestBase {
     ContactData item = before.get(index);
     app.goTo().gotoHomePage();
     app.getContactHelper().initContactModification(index);
-    ContactData contact = new ContactData(item.getId(), "Александр", "Пучков", "Москва008", "88008888", "test@test.ru", null);
+    ContactData contact = new ContactData().withId(item.getId()).withFirstname("Александр").withLastname("Пучков").withAddress("Москва008").withWork_number("88008888").withEmail("test@test.ru");
     app.getContactHelper().fillContactForm(contact,false);
     app.getContactHelper().submitContactModification();
     app.goTo().gotoHomePage();
