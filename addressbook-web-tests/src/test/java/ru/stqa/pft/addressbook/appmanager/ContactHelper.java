@@ -8,9 +8,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.Groups;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Sungatullina on 12.04.2017.
@@ -49,9 +52,17 @@ public class ContactHelper extends HelperBase{
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
+  public void selectContactById (int id) {
+    wd.findElement (By.cssSelector("input[value='"+ id +"']")).click();
+  }
+
   public void initContactModification(int index) {
    // click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     wd.findElements(By.xpath("//table[@id='maintable']//img[@title='Edit']")).get(index).click();
+  }
+
+  public void initContactModificationById(int id) {
+    wd.get("http://localhost/addressbook/edit.php?id=" + Integer.toString(id));
   }
 
   public void submitContactModification() {
@@ -59,11 +70,29 @@ public class ContactHelper extends HelperBase{
   }
 
 
-  public void createContact(ContactData contact) {
+  public void create(ContactData contact) {
     fillContactForm(contact, true);
     submitContactCreation();
+  }
+
+  public void modify(int index, ContactData contact) {
+   initContactModificationById(index);
+   fillContactForm(contact,false);
+   submitContactModification();
+  }
+
+  public void delete(int index) {
+   selectContact(index);
+   deleteSelectedContact();
+  }
+
+
+  public void delete(ContactData contact) {
+    selectContactById(contact.getId());
+    deleteSelectedContact();
 
   }
+
 
   public boolean isTheAContact() {
     return isElementPresent(By.name("selected[]"));
@@ -73,8 +102,10 @@ public class ContactHelper extends HelperBase{
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<ContactData> getContactList() {
-    List<ContactData> contacts = new ArrayList<ContactData>();
+
+
+  public Contacts all() {
+    Contacts contacts = new Contacts();
     List<WebElement> elements = wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr[td]"));
     for (WebElement element : elements) {
       int id =Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value")) ;
@@ -82,4 +113,5 @@ public class ContactHelper extends HelperBase{
     }
     return contacts;
   }
+
 }

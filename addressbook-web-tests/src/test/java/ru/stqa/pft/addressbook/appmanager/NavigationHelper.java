@@ -22,12 +22,12 @@ public class NavigationHelper extends HelperBase{
     click(By.linkText("groups"));
   }
 
-  public void gotoContactPage() {
+  public void contactPage() {
     click(By.linkText("add new"));
     wd.get("http://localhost/addressbook/edit.php");
   }
 
-  public void gotoHomePage() {
+  public void homePage() {
     if (isElementPresent(By.id("maintable"))) {
       return;
     }
