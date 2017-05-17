@@ -11,9 +11,8 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.Groups;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 /**
  * Created by Sungatullina on 12.04.2017.
@@ -73,12 +72,14 @@ public class ContactHelper extends HelperBase{
   public void create(ContactData contact) {
     fillContactForm(contact, true);
     submitContactCreation();
+    contactCache = null;
   }
 
   public void modify(int index, ContactData contact) {
    initContactModificationById(index);
    fillContactForm(contact,false);
    submitContactModification();
+   contactCache = null;
   }
 
   public void delete(int index) {
@@ -90,7 +91,7 @@ public class ContactHelper extends HelperBase{
   public void delete(ContactData contact) {
     selectContactById(contact.getId());
     deleteSelectedContact();
-
+    contactCache = null;
   }
 
 
@@ -102,16 +103,20 @@ public class ContactHelper extends HelperBase{
     return wd.findElements(By.name("selected[]")).size();
   }
 
+  private Contacts contactCache = null;
+
 
 
   public Contacts all() {
-    Contacts contacts = new Contacts();
+    if (contactCache != null) {
+      return new Contacts(contactCache);
+    }
+    contactCache = new Contacts();
     List<WebElement> elements = wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr[td]"));
     for (WebElement element : elements) {
       int id =Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value")) ;
-      contacts.add(new ContactData().withId(id).withFirstname(element.findElement(By.xpath(".//td[3]")).getText()).withLastname(element.findElement(By.xpath(".//td[2]")).getText()));
+      contactCache.add(new ContactData().withId(id).withFirstname(element.findElement(By.xpath(".//td[3]")).getText()).withLastname(element.findElement(By.xpath(".//td[2]")).getText()));
     }
-    return contacts;
+    return contactCache;
   }
-
 }
