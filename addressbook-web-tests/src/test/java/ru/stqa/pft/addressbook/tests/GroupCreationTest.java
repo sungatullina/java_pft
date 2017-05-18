@@ -17,12 +17,22 @@ public class GroupCreationTest extends TestBase{
     GroupData group = new GroupData().withName("test2");
     app.group().create(group);
     app.goTo().groupPage();
+    assertThat(app.group().count(), equalTo(before.size() + 1));
     Groups after = app.group().all(); //список элементов, после того как создана новая группа
-    assertThat(after.size(), equalTo(before.size() + 1));
-
-    //group.withId(after.stream().mapToInt((g)->g.getId()).max().getAsInt()); //функция, которая  преобразует объект в идентификатор в число
     assertThat(after, equalTo(
             before.withAdded(group.withId(after.stream().mapToInt((g)->g.getId()).max().getAsInt()))));
+  }
+
+  @Test
+  public void testBadGroupCreation() {
+    app.goTo().groupPage();
+    Groups before = app.group().all();
+    GroupData group = new GroupData().withName("test'");
+    app.group().create(group);
+    app.goTo().groupPage();
+    assertThat(app.group().count(), equalTo(before.size()));
+    Groups after = app.group().all(); //список элементов, после того как создана новая группа
+    assertThat(after, equalTo(before));
   }
 
 }
