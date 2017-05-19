@@ -111,15 +111,14 @@ public class ContactHelper extends HelperBase{
     contactCache = new Contacts();
     List<WebElement> elements = wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr[td]"));
     for (WebElement element : elements) {
-     // int id =Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value")) ;
       List<WebElement> cells = element.findElements(By.tagName("td"));
       int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
       String lastname = cells.get(1).getText();
       String firstname = cells.get(2).getText();
-      String[] phones = cells.get(5).getText().split("\n");
+      String allPhones = cells.get(5).getText();
 
       contactCache.add(new ContactData().withId(id).withFirstname(element.findElement(By.xpath(".//td[3]")).getText()).withLastname(element.findElement(By.xpath(".//td[2]")).getText())
-              .withHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2]));
+              .withAllPhones(allPhones));
     }
     return contactCache;
   }
