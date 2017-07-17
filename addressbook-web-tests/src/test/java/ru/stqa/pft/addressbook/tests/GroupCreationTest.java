@@ -19,6 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupCreationTest extends TestBase{
 
+
   @DataProvider
   public Iterator<Object[]> validGroupsFromXml() throws IOException {
       try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")))) {
@@ -61,7 +62,7 @@ public class GroupCreationTest extends TestBase{
       Groups after = app.group().all(); //список элементов, после того как создана новая группа
       assertThat(after, equalTo(
               before.withAdded(group.withId(after.stream().mapToInt((g)->g.getId()).max().getAsInt()))));
- }
+  }
 
 
   @Test (enabled = false)
