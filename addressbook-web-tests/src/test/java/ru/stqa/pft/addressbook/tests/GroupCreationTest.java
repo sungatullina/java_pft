@@ -55,11 +55,11 @@ public class GroupCreationTest extends TestBase{
   @Test (dataProvider = "validGroupsFromJson")
   public void testGroupCreation(GroupData group) {
       app.goTo().groupPage();
-      Groups before = app.group().all();
+      Groups before = app.db().groups();
       app.group().create(group);
       app.goTo().groupPage();
       assertThat(app.group().count(), equalTo(before.size() + 1));
-      Groups after = app.group().all(); //список элементов, после того как создана новая группа
+      Groups after = app.db().groups(); //список элементов, после того как создана новая группа
       assertThat(after, equalTo(
               before.withAdded(group.withId(after.stream().mapToInt((g)->g.getId()).max().getAsInt()))));
   }
