@@ -32,11 +32,14 @@ public class GroupModificationTests extends TestBase{
     app.goTo().groupPage();
     Groups before = app.db().groups();
     GroupData modifiedGroup = before.iterator().next();
-    GroupData group = new GroupData().withId(modifiedGroup.getId()).withName("test1").withHeader("test2").withFooter("test3");
+    GroupData group = new GroupData()
+            .withId(modifiedGroup.getId()).withName("test1").withHeader("test2").withFooter("test3");
     app.goTo().groupPage();
     app.group().modify(group);
     assertThat(app.group().count(), equalTo(before.size()));
     Groups after = app.db().groups();
     assertThat(after, CoreMatchers.equalTo(before.without(modifiedGroup).withAdded(group)));
+    verifyGroupListInUI();
   }
+
 }
