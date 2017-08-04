@@ -7,7 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
+import java.security.acl.Group;
 import java.util.List;
 
 
@@ -68,6 +70,10 @@ public class ContactHelper extends HelperBase{
     wd.get("http://localhost/addressbook/edit.php?id=" + Integer.toString(id));
   }
 
+  public void initContactByGroup(int group){
+    wd.get("http://localhost/addressbook/?group=" + Integer.toString(group));
+  }
+
   public void submitContactModification() {
     click(By.xpath("//div[@id='content']/form[1]/input[22]"));
   }
@@ -97,6 +103,34 @@ public class ContactHelper extends HelperBase{
     deleteSelectedContact();
     contactCache = null;
   }
+
+  public void addContacts(ContactData contact, GroupData group) {
+    selectContactById(contact.getId());
+    submitToGroupById(group.getId());
+  }
+
+  private void submitToGroupById(int id) {
+    Select select = new Select(wd.findElement(By.xpath("//select[@name='to_group']")));
+    select.selectByValue(Integer.toString(id));
+    click(By.name("add"));
+  }
+
+  public void selectGroupPage(int id) {
+    Select select = new Select(wd.findElement(By.xpath("//div[@id='content']/form[@id='right']/select")));
+    select.selectByValue(Integer.toString(id));
+
+  }
+
+  private void submitRemoveFromGroup() {
+    click(By.name("remove"));
+  }
+
+  public void deleteContactFromGroup(ContactData contact, GroupData group){
+    selectGroupPage(group.getId());
+    selectContactById(contact.getId());
+    submitRemoveFromGroup();
+  }
+
 
 
   public boolean isTheAContact() {
