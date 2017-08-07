@@ -3,22 +3,31 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="createEmptyContentRootDirectories" value="true" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/addressbook-web-tests" />
+        <option name="externalProjectPath" value="C:/Work/java_pft/addressbook-web-tests" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/addressbook-web-tests" />
+            <option value="C:/Work/java_pft/addressbook-web-tests" />
           </set>
         </option>
         <option name="useAutoImport" value="true" />
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/sandbox" />
+        <option name="externalProjectPath" value="C:/Work/java_pft/mantis-tests" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/sandbox" />
+            <option value="C:/Work/java_pft/mantis-tests" />
+          </set>
+        </option>
+        <option name="useAutoImport" value="true" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="C:/Work/java_pft/sandbox" />
+        <option name="modules">
+          <set>
+            <option value="C:/Work/java_pft/sandbox" />
           </set>
         </option>
         <option name="useAutoImport" value="true" />
