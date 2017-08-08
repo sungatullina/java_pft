@@ -8,15 +8,19 @@ repositories {
 
 dependencies {
     compile 'org.testng:testng:6.11'
+    compile 'ch.qos.logback:logback-classic:1.2.3'
     compile 'org.seleniumhq.selenium:selenium-java:3.3.1'
     compile 'org.hamcrest:java-hamcrest:2.0.0.0'
     compile 'commons-net:commons-net:3.6'
+    compile 'org.subethamail:subethasmtp:3.1.7'
+    compile 'ru.lanwen.verbalregex:java-verbal-expressions:1.4'
+
 }
 
 
 test {
     useTestNG {
-        suites 'src/test/resources/testng-groups.xml'
+        suites 'src/test/resources/testng.xml'
     }
     if (project.hasProperty('browser')) {
         systemProperty 'browser', "${browser}"
