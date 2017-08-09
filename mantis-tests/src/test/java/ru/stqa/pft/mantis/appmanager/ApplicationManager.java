@@ -25,6 +25,8 @@ public class ApplicationManager {
   private FtpHelper ftp;
   private MailHelper mailHelper;
   private JamesHelper jamesHelper;
+  private PwdChangeHelper pwdChangeHelper;
+  private DbHelper dbHelper;
 
 
   public ApplicationManager(String browser)  {
@@ -36,6 +38,7 @@ public class ApplicationManager {
   public void init() throws IOException {
     String target = System.getProperty("target", "local");
     properties.load(new FileReader(new File(String.format ("src/test/resources/%s.properties", target))));
+    dbHelper = new DbHelper();
   }
 
   public void stop() {
@@ -57,6 +60,17 @@ public class ApplicationManager {
       registrationHelper = new RegistrationHelper(this);
     }
     return registrationHelper;
+  }
+
+  public PwdChangeHelper user() {
+    if (pwdChangeHelper == null){
+      pwdChangeHelper = new PwdChangeHelper(this);
+    }
+    return pwdChangeHelper;
+  }
+
+  public DbHelper db() {
+    return dbHelper;
   }
 
   public FtpHelper ftp(){

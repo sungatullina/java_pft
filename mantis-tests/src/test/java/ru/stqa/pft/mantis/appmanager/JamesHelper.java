@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,12 +48,21 @@ public class JamesHelper {
         String result = readUntil("User " + name + " added");   //ждем до тех пор, пока на консоли не появится этот текст
         closeTelnetSession();                                  //разрываем соединение
     }
+
     public void deleteUser(String name){
         initTelnetSession();
         write("deluser " + name);
         String result = readUntil("User " + name + " deleted");
         closeTelnetSession();
     }
+
+    public void setUserPassword(String name, String passwd){
+        initTelnetSession();                                    //устанавливается соединение по протоколу телнет
+        write("setpassword " + name + " " + passwd);                //вводим текст
+        String result = readUntil("Password for " + name + " reset");   //ждем до тех пор, пока на консоли не появится этот текст
+        closeTelnetSession();                                  //разрываем соединение
+    }
+
 
     private void initTelnetSession(){
         mailserver = app.getProperty("mailserver.host");
@@ -167,7 +177,7 @@ public class JamesHelper {
 
     public static MailMessage toModelMail(Message m) {
         try {
-            return new MailMessage(m.getAllRecipients()[0].toString(), (String) m.getContent());
+            return new MailMessage(m.getAllRecipients()[0].toString(), (Date) m.getSentDate(), (String) m.getContent());
         }catch (MessagingException e){
             e.printStackTrace();
             return null;
